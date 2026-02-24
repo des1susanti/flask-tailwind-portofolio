@@ -561,25 +561,30 @@ function rotateAchCarousel() {
 </head>
 <body class="transition-colors duration-300">
 
-    <nav class="fixed top-0 left-0 w-full z-50 border-b dark:bg-[#0f172a]/90 dark:border-slate-800 backdrop-blur-md bg-white/80">
+   <nav class="fixed top-0 left-0 w-full z-50 border-b dark:bg-[#0f172a]/90 dark:border-slate-800 backdrop-blur-md bg-white/80">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-    <div class="text-xl font-bold text-teal-600 dark:text-teal-400 italic">desi.susanti</div>
-    <div class="hidden md:flex items-center space-x-6 text-xs font-bold uppercase">
-        <a href="#beranda" data-id="nav_home" class="hover:text-teal-500 transition">Beranda</a>
-        <a href="#tentang" data-id="nav_about" class="hover:text-teal-500 transition">Tentang</a>
-        <a href="#pendidikan" data-id="nav_edu" class="hover:text-teal-500 transition">Pendidikan</a>
-        <a href="#keahlian" data-id="nav_skills" class="hover:text-teal-500 transition">Keahlian</a>
-        
-        <a href="#publikasi" data-id="nav_pub" class="hover:text-teal-500 transition">Publikasi</a>
-        <a href="#project" data-id="nav_project" class="hover:text-teal-500 transition">Project</a>
-        
-        <a href="#sertifikasi" data-id="nav_cert" class="hover:text-teal-500 transition">Sertifikasi</a>
-        
-        <div class="flex items-center space-x-2 border-l pl-4 border-slate-300 dark:border-slate-700">
-            <button id="btn-id" onclick="setLanguage('id')" class="hover:text-teal-500" style="color:#14b8a6">ID</button>
-            <span class="dark:text-slate-600">|</span>
-            <button id="btn-en" onclick="setLanguage('en')" class="hover:text-teal-500" style="color:gray">EN</button>
-        </div>
+        <div class="text-xl font-bold text-teal-600 dark:text-teal-400 italic">desi.susanti</div>
+
+        <button id="menu-btn" class="block md:hidden text-teal-600 dark:text-teal-400 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+
+        <div id="nav-menu" class="hidden absolute top-full left-0 w-full bg-white dark:bg-[#0f172a] p-6 border-b md:border-none md:static md:block md:w-auto md:bg-transparent md:p-0">
+            <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6 text-xs font-bold uppercase">
+                <a href="#beranda" data-id="nav_home" class="hover:text-teal-500 transition">Beranda</a>
+                <a href="#tentang" data-id="nav_about" class="hover:text-teal-500 transition">Tentang</a>
+                <a href="#pendidikan" data-id="nav_edu" class="hover:text-teal-500 transition">Pendidikan</a>
+                <a href="#keahlian" data-id="nav_skills" class="hover:text-teal-500 transition">Keahlian</a>
+                <a href="#publikasi" data-id="nav_pub" class="hover:text-teal-500 transition">Publikasi</a>
+                <a href="#project" data-id="nav_project" class="hover:text-teal-500 transition">Project</a>
+                <a href="#sertifikasi" data-id="nav_cert" class="hover:text-teal-500 transition">Sertifikasi</a>
+                
+                <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 border-t md:border-t-0 md:border-l pt-4 md:pt-0 md:pl-4 border-slate-300 dark:border-slate-700 w-full md:w-auto">
+                    <div class="flex items-center space-x-2">
+                        <button id="btn-id" onclick="setLanguage('id')" class="hover:text-teal-500" style="color:#14b8a6">ID</button>
+                        <span class="dark:text-slate-600">|</span>
+                        <button id="btn-en" onclick="setLanguage('en')" class="hover:text-teal-500" style="color:gray">EN</button>
+                    </div>
 
             <div class="flex items-center space-x-3">
                 <a href="https://www.linkedin.com/in/desi-susanti-70a7b831a" target="_blank" class="hover:text-teal-400 text-lg transition"><i class="fab fa-linkedin"></i></a>
@@ -962,6 +967,24 @@ function rotateAchCarousel() {
 
     </div>
 </section>
+<script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navMenu = document.getElementById('nav-menu');
 
+        // Fungsi untuk buka-tutup menu saat tombol hamburger diklik
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden');
+        });
+
+        // Menutup menu secara otomatis saat salah satu link diklik
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    navMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
