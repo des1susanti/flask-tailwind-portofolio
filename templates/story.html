@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Story | Desi Susanti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = { darkMode: 'class' }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        const translations = {
+            id: {
+                nav_home: "BERANDA", nav_about: "TENTANG", nav_edu: "PENDIDIKAN", nav_skill: "KEAHLIAN", 
+                nav_pub: "PUBLIKASI", nav_proj: "PROJECT", nav_cert: "SERTIFIKASI",
+                quote: '"Rasa ingin tahu adalah awal dari setiap algoritma dan pembelajaran adalah fondasi dari setiap inovasi."',
+                p1: "Saya adalah akademisi di bidang Ilmu Komputer yang berfokus pada pengembangan pemodelan komputasi dan analisis data untuk mendukung pengambilan keputusan yang lebih tepat dan berbasis data.",
+                p2: "Penelitian yang saya kembangkan berorientasi pada penguatan metodologi analitik, integrasi berbagai pendekatan komputasi, serta optimalisasi proses pengolahan data yang kompleks.",
+                p3: "Sebagai pendidik, saya berkomitmen membangun lingkungan akademik yang mendorong pemikiran kritis, kemandirian intelektual, dan pembelajaran berkelanjutan."
+            },
+            en: {
+                nav_home: "HOME", nav_about: "ABOUT", nav_edu: "EDUCATION", nav_skill: "SKILLS",
+                nav_pub: "PUBLICATIONS", nav_proj: "PROJECTS", nav_cert: "CERTIFICATIONS",
+                quote: '"Curiosity is the beginning of every algorithm and learning is the foundation of every innovation."',
+                p1: "I am a computer science academic focused on developing computational modeling and data analysis to support more precise, data-based decision-making.",
+                p2: "My research is oriented towards strengthening analytical methodologies, integrating various computational approaches, and optimizing complex data processing.",
+                p3: "As an educator, I am committed to building an academic environment that encourages critical thinking, intellectual independence, and lifelong learning."
+            }
+        };
+
+        function switchLanguage(lang) {
+            const elements = document.querySelectorAll('[data-id]');
+            elements.forEach(el => {
+                const id = el.getAttribute('data-id');
+                if (translations[lang][id]) el.innerText = translations[lang][id];
+            });
+            document.getElementById('btn-id').classList.toggle('text-teal-500', lang === 'id');
+            document.getElementById('btn-en').classList.toggle('text-teal-500', lang === 'en');
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; background-color: #FDF2E9; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .circle-decoration {
+            width: 380px; height: 380px;
+            background-color: #FADBD8;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px; text-align: center;
+            position: relative; z-index: 10;
+            margin-top: -120px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .squiggle-container { width: 100px; margin-top: -30px; position: relative; z-index: 5; }
+        .squiggle-path {
+            stroke: #FADBD8; stroke-width: 4; stroke-linecap: round; fill: none;
+            stroke-dasharray: 1000; stroke-dashoffset: 1000;
+            animation: draw 5s linear infinite;
+        }
+        @keyframes draw {
+            0% { stroke-dashoffset: 1000; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -1000; }
+        }
+        .main-photo { width: 100%; height: auto; max-height: 550px; object-fit: cover; display: block; }
+    </style>
+</head>
+<body class="dark:bg-[#0f172a] text-slate-800 dark:text-slate-100">
+
+    <nav class="fixed top-0 left-0 w-full z-50 border-b backdrop-blur-md bg-white/80 dark:bg-[#0f172a]/80 border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-teal-600 italic">desi.susanti</div>
+            
+            <div class="hidden lg:flex items-center space-x-4 text-[11px] font-bold tracking-widest uppercase">
+                <a href="{{ url_for('home') }}#beranda" data-id="nav_home" class="hover:text-teal-500 transition">BERANDA</a>
+                <a href="{{ url_for('home') }}#tentang" data-id="nav_about" class="hover:text-teal-500 transition">TENTANG</a>
+                <a href="{{ url_for('home') }}#pendidikan" data-id="nav_edu" class="hover:text-teal-500 transition">PENDIDIKAN</a>
+                <a href="{{ url_for('home') }}#keahlian" data-id="nav_skill" class="hover:text-teal-500 transition">KEAHLIAN</a>
+                <a href="{{ url_for('home') }}#publikasi" data-id="nav_pub" class="hover:text-teal-500 transition">PUBLIKASI</a>
+                <a href="{{ url_for('home') }}#project" data-id="nav_proj" class="hover:text-teal-500 transition">PROJECT</a>
+                <a href="{{ url_for('home') }}#sertifikasi" data-id="nav_cert" class="hover:text-teal-500 transition">SERTIFIKASI</a>
+                
+                <div class="flex items-center space-x-1 border-l pl-4 border-slate-300 dark:border-slate-600">
+                    <button id="btn-id" onclick="switchLanguage('id')" class="text-teal-500">ID</button>
+                    <span class="text-slate-400">|</span>
+                    <button id="btn-en" onclick="switchLanguage('en')">EN</button>
+                </div>
+
+                <div class="flex items-center space-x-3 border-l pl-4 border-slate-300 dark:border-slate-600">
+                    <a href="https://www.linkedin.com/in/desi-susanti-70a7b831a" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/ds_wisayoga" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@desdess8" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-tiktok"></i></a>
+                </div>
+
+                <button onclick="toggleTheme()" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full text-teal-500 transition-all">
+                    <i class="fas fa-circle-half-stroke"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div id="beranda" class="w-full pt-16">
+            <img src="{{ url_for('static', filename='utama.jpg') }}" class="main-photo" alt="Desi Susanti">
+        </div>
+
+        <div id="tentang" class="container mx-auto px-6 max-w-6xl pb-32 mt-10">
+            <div class="flex flex-col md:flex-row items-start gap-8 lg:gap-16">
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="circle-decoration">
+                            <h2 data-id="quote" class="text-xl md:text-2xl serif italic leading-snug text-slate-900">
+                                "Rasa ingin tahu adalah awal dari setiap algoritma dan pembelajaran adalah fondasi dari setiap inovasi."
+                            </h2>
+                        </div>
+                        <div class="squiggle-container">
+                            <svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">
+                                <path class="squiggle-path" d="M50,0 C70,50 30,100 50,150 S70,250 50,300" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 pt-10 md:pt-20">
+                    <div class="space-y-6 text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                        <p data-id="p1">
+                            Saya adalah akademisi di bidang Ilmu Komputer yang berfokus pada pengembangan pemodelan komputasi dan analisis data untuk mendukung pengambilan keputusan yang lebih tepat dan berbasis data.
+                        </p>
+                        <p data-id="p2">
+                            Penelitian yang saya kembangkan berorientasi pada penguatan metodologi analitik, integrasi berbagai pendekatan komputasi, serta optimalisasi proses pengolahan data yang kompleks.
+                        </p>
+                        <p data-id="p3" class="font-semibold text-teal-600 dark:text-teal-400">
+                            Sebagai pendidik, saya berkomitmen membangun lingkungan akademik yang mendorong pemikiran kritis dan kemandirian intelektual.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-12 text-center text-[10px] text-slate-400 uppercase tracking-widest border-t dark:border-slate-800">
+        &copy; 2026 DESI SUSANTI. ALL RIGHTS RESERVED.
+    </footer>
+
+</body>
+</html>
