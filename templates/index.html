@@ -15,7 +15,14 @@
             }
         }
     }
-
+let currentRotation = 0;
+    function rotateCarousel() {
+        currentRotation -= 51.4; 
+        const carousel = document.getElementById('graduationCarousel');
+        if (carousel) {
+            carousel.style.transform = `rotateY(${currentRotation}deg)`;
+        }
+    }
     function toggleTheme() {
         const html = document.querySelector('html');
         html.classList.toggle('dark');
