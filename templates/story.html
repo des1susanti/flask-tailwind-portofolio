@@ -44,6 +44,14 @@
             document.getElementById('btn-id').classList.toggle('text-teal-500', lang === 'id');
             document.getElementById('btn-en').classList.toggle('text-teal-500', lang === 'en');
         }
+        // Tambahkan ini agar posisi switch sesuai dengan tema yang tersimpan
+document.addEventListener('DOMContentLoaded', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    const checkbox = document.getElementById('theme-toggle-checkbox');
+    if (checkbox) {
+        checkbox.checked = isDark;
+    }
+});
     </script>
     
     <style>
@@ -51,14 +59,31 @@
         body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; background-color: #FDF2E9; }
         .serif { font-family: 'Playfair Display', serif; }
         .circle-decoration {
-            width: 380px; height: 380px;
+            /* Ukuran untuk HP (Default) */
+            width: 280px; 
+            height: 280px;
             background-color: #FADBD8;
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            padding: 40px; text-align: center;
-            position: relative; z-index: 10;
-            margin-top: -120px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 30px; 
+            text-align: center;
+            position: relative; 
+            z-index: 10;
+            margin-top: -80px; /* Jarak lebih pas di HP agar tidak menabrak foto */
             box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        /* Ukuran untuk LAPTOP (Layar Lebar) */
+        @media (min-width: 768px) {
+            .circle-decoration {
+                width: 380px; 
+                height: 380px;
+                margin-top: -120px; /* Kembali ke desain asli untuk laptop */
+                padding: 40px;
+            }
         }
         .squiggle-container { width: 100px; margin-top: -30px; position: relative; z-index: 5; }
         .squiggle-path {
@@ -76,11 +101,29 @@
 </head>
 <body class="dark:bg-[#0f172a] text-slate-800 dark:text-slate-100">
 
-    <nav class="fixed top-0 left-0 w-full z-50 border-b backdrop-blur-md bg-white/80 dark:bg-[#0f172a]/80 border-slate-200 dark:border-slate-800">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-xl font-bold text-teal-600 italic">desi.susanti</div>
-            
-            <div class="hidden lg:flex items-center space-x-4 text-[11px] font-bold tracking-widest uppercase">
+      <span class="text-slate-400">|</span>
+                        <button id="btn-en" onclick="switchLanguage('en')">EN</button>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <a href="https://www.linkedin.com/in/desi-susanti-70a7b831a" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/ds_wisayoga" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@desdess8" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com/des1susanti" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-github"></i></a>
+                    </div>
+                        </label>
+                    </div>
+                </div> </div> </div>
+                <nav class="fixed top-0 left-0 w-full z-50 border-b backdrop-blur-md bg-white/80 dark:bg-[#0f172a]/80 border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold text-teal-600 italic">desi.susanti</div>
+        
+        <button id="menu-btn" class="block lg:hidden text-teal-600 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+
+        <div id="nav-menu" class="hidden absolute top-full left-0 w-full bg-white dark:bg-[#0f172a] p-6 border-b lg:border-none lg:static lg:block lg:w-auto lg:bg-transparent lg:p-0">
+            <div class="flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-4 text-[11px] font-bold tracking-widest uppercase">
                 <a href="{{ url_for('home') }}#beranda" data-id="nav_home" class="hover:text-teal-500 transition">BERANDA</a>
                 <a href="{{ url_for('home') }}#tentang" data-id="nav_about" class="hover:text-teal-500 transition">TENTANG</a>
                 <a href="{{ url_for('home') }}#pendidikan" data-id="nav_edu" class="hover:text-teal-500 transition">PENDIDIKAN</a>
@@ -89,68 +132,86 @@
                 <a href="{{ url_for('home') }}#project" data-id="nav_proj" class="hover:text-teal-500 transition">PROJECT</a>
                 <a href="{{ url_for('home') }}#sertifikasi" data-id="nav_cert" class="hover:text-teal-500 transition">SERTIFIKASI</a>
                 
-                <div class="flex items-center space-x-1 border-l pl-4 border-slate-300 dark:border-slate-600">
-                    <button id="btn-id" onclick="switchLanguage('id')" class="text-teal-500">ID</button>
-                    <span class="text-slate-400">|</span>
-                    <button id="btn-en" onclick="switchLanguage('en')">EN</button>
-                </div>
+                <div class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 border-t lg:border-t-0 lg:border-l pt-4 lg:pt-0 lg:pl-4 border-slate-300 dark:border-slate-600 w-full lg:w-auto">
+                    <div class="flex items-center space-x-1">
+    <button id="btn-id" onclick="switchLanguage('id')" class="text-teal-500 font-bold">ID</button>
+    <span class="text-slate-400">|</span>
+    <button id="btn-en" onclick="switchLanguage('en')" class="text-slate-400 hover:text-teal-500 transition-colors">EN</button>
+</div>
+                   <div class="flex items-center space-x-3 text-lg">
+    <a href="https://www.linkedin.com/in/desi-susanti-70a7b831a" target="_blank" class="hover:text-teal-500 transition"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/ds_wisayoga" target="_blank" class="hover:text-teal-500 transition"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@desdess8" target="_blank" class="hover:text-teal-500 transition"><i class="fab fa-tiktok"></i></a>
+    <a href="https://github.com/des1susanti" target="_blank" class="hover:text-teal-500 transition"><i class="fab fa-github"></i></a>
+</div>
 
-                <div class="flex items-center space-x-3 border-l pl-4 border-slate-300 dark:border-slate-600">
-                    <a href="https://www.linkedin.com/in/desi-susanti-70a7b831a" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/ds_wisayoga" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@desdess8" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://github.com/des1susanti" target="_blank" class="text-lg hover:text-teal-500"><i class="fab fa-github"></i></a>
-                </div>
-
-                <button onclick="toggleTheme()" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full text-teal-500 transition-all">
-                    <i class="fas fa-circle-half-stroke"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
+                    <div class="flex items-center ml-2">
+                        <label class="relative inline-flex items-center cursor-pointer scale-90">
+                            <input type="checkbox" id="theme-toggle-checkbox" class="sr-only peer" onclick="toggleTheme()">
+                            <div class="w-12 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-500 flex items-center justify-between px-1.5">
+                                <i class="fas fa-sun text-yellow-500 text-[14px]"></i>
+                                <i class="fas fa-moon text-slate-400 text-[14px]"></i>
+                            </div>
+                        </label>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</nav>
     <main>
         <div id="beranda" class="w-full pt-16">
             <img src="{{ url_for('static', filename='utama.jpg') }}" class="main-photo" alt="Desi Susanti">
         </div>
 
-        <div id="tentang" class="container mx-auto px-6 max-w-6xl pb-32 mt-10">
-            <div class="flex flex-col md:flex-row items-start gap-8 lg:gap-16">
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="circle-decoration">
-                            <h2 data-id="quote" class="text-xl md:text-2xl serif italic leading-snug text-slate-900">
-                                "Rasa ingin tahu adalah awal dari setiap algoritma dan pembelajaran adalah fondasi dari setiap inovasi."
-                            </h2>
-                        </div>
-                        <div class="squiggle-container">
-                            <svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">
-                                <path class="squiggle-path" d="M50,0 C70,50 30,100 50,150 S70,250 50,300" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="md:w-1/2 pt-10 md:pt-20">
-                    <div class="space-y-6 text-lg leading-relaxed text-slate-700 dark:text-slate-300">
-                        <p data-id="p1">
-                            Saya adalah akademisi di bidang Ilmu Komputer yang berfokus pada pengembangan pemodelan komputasi dan analisis data untuk mendukung pengambilan keputusan yang lebih tepat dan berbasis data.
-                        </p>
-                        <p data-id="p2">
-                            Penelitian yang saya kembangkan berorientasi pada penguatan metodologi analitik, integrasi berbagai pendekatan komputasi, serta optimalisasi proses pengolahan data yang kompleks.
-                        </p>
-                        <p data-id="p3" class="font-semibold text-teal-600 dark:text-teal-400">
-                            Sebagai pendidik, saya berkomitmen membangun lingkungan akademik yang mendorong pemikiran kritis dan kemandirian intelektual.
-                        </p>
-                    </div>
-                </div>
+       <div id="tentang" class="container mx-auto px-6 max-w-7xl pb-32 mt-10">
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-10">
+        
+        <div class="w-full md:w-1/2 flex flex-col items-center">
+            <div class="circle-decoration">
+                <h2 data-id="quote" class="text-xl md:text-2xl serif italic text-slate-900">
+                    "Rasa ingin tahu adalah awal dari setiap algoritma dan pembelajaran adalah fondasi dari setiap inovasi."
+                </h2>
+            </div>
+            <div class="squiggle-container">
+                <svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">
+                    <path class="squiggle-path" d="M50,0 C70,50 30,100 50,150 S70,250 50,300" />
+                </svg>
             </div>
         </div>
+
+        <div class="w-full md:w-1/2 pt-5 md:pt-20">
+            <div class="space-y-6 text-lg md:text-xl text-center md:text-left">
+                <p data-id="p1">Saya adalah akademisi di bidang Ilmu Komputer yang berfokus pada pengembangan pemodelan komputasi dan analisis data untuk mendukung pengambilan keputusan yang lebih tepat dan berbasis data.</p>
+                <p data-id="p2">Penelitian yang saya kembangkan berorientasi pada penguatan metodologi analitik, integrasi berbagai pendekatan komputasi, serta optimalisasi proses pengolahan data yang kompleks.</p>
+                <p data-id="p3" class="font-semibold text-teal-600">Sebagai pendidik, saya berkomitmen membangun lingkungan akademik yang mendorong pemikiran kritis dan kemandirian intelektual.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
     </main>
 
     <footer class="py-12 text-center text-[10px] text-slate-400 uppercase tracking-widest border-t dark:border-slate-800">
         &copy; 2026 DESI SUSANTI. ALL RIGHTS RESERVED.
     </footer>
+<script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navMenu = document.getElementById('nav-menu');
 
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden');
+        });
+
+        // Otomatis tutup menu saat link diklik di HP
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    navMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
