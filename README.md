@@ -1,7 +1,6 @@
 # 🚀 Flask Tailwind Portfolio: Academic & Professional Showcase
-### Developed by Desi Susanti, M.Kom
 
-A personal branding platform and portfolio built with **Flask** and **Tailwind CSS**. This project serves as a comprehensive showcase of my academic journey, research in **Artificial Intelligence**, and software development competencies.
+A personal branding platform and portfolio built with **Flask** and **Tailwind CSS**. 
 
 ## 🌟 Key Highlights
 - **Research Oriented:** Showcasing scientific publications in Neural Networks and SVR.
